@@ -1,0 +1,116 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  background-color: #2c3e50;
+  border-right: 1px solid #c97b33;
+  z-index: 100;
+  flex-shrink: 0; /* Sidebar tidak akan menyusut jika ada konten di sampingnya */
+  
+  .top {
+    height: 50px;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2c3e50;
+    
+
+    h3 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #999;
+      margin: 0;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  .center {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #999;
+        margin-top: 10px;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #fde9dd;
+        }
+
+        &.active {
+          background-color: #007bff;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .icon {
+          font-size: 20px;
+          color: #7b3c08;
+        }
+
+        span {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+
+    .colorOption {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #7b3c08;
+      cursor: pointer;
+      margin: 0 10px;
+
+      &:nth-child(1) {
+        background-color: whitesmoke;
+      }
+
+      &:nth-child(2) {
+        background-color: #333;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+
+  @media (max-width: 480px) {
+    width: 180px;
+  }
+}

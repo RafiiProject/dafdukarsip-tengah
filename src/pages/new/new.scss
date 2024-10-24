@@ -1,0 +1,245 @@
+.new {
+  display: flex;
+  max-width: 100%;
+  max-height: 100vh;
+  margin-left: 240px;
+  padding: 20px;
+
+  .newContainer {
+    flex: 6;
+    background-color: #e0ffff;
+    box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+
+    .top{
+      box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      background-color: #fff;
+      transition: transform 0.3s ease-in-out;
+      margin-bottom: 30px;
+      margin-top: 50px;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      h1 {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center; // Posisi judul di tengah
+      }
+
+      .right {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 100%;
+
+          .formInput {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+           
+
+            label {
+              font-weight: bold;
+              margin-bottom: 5px;
+              color: #333;
+            }
+
+            input, select {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+              background-color: #f0f0f0;
+              transition: all 0.3s ease;
+
+              &:focus {
+                border-color: #4f86c6;
+                background-color: #fff;
+                box-shadow: 0 0 8px rgba(79, 134, 198, 0.2);
+              }
+
+              &[disabled] {
+                background-color: #e0e0e0;
+                cursor: not-allowed;
+              }
+            }
+          }
+
+          .error {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+          }
+
+          .button {
+            width: 100%;
+            display: flex;
+            justify-content: center; // Atur posisi button di tengah bawah
+            gap: 20px; // Jarak antara tombol
+
+            button {
+              width: 200px;
+              padding: 15px;
+              border: none;
+              font-weight: bold;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+              background-color: #4caf50; // Warna hijau untuk tombol 'Send'
+              color: white;
+
+              &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              }
+
+              &:disabled {
+                background-color: lightgray;
+                cursor: not-allowed;
+              }
+
+              &.batal {
+                background-color: #f44336; // Warna merah untuk tombol 'Batal'
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
+      padding: 50px;
+      margin: 20px;
+      border-radius: 15px;
+      background-color: #fff;
+      transition: transform 0.3s ease-in-out;
+      margin-bottom: 120px;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      h1 {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center; // Posisi judul di tengah
+      }
+
+      .right {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 40px;
+          justify-content: center;
+          width: 100%;
+
+          .formInput {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            
+
+            label {
+              font-weight: bold;
+              margin-bottom: 5px;
+              color: #333;
+            }
+
+            input, select {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+              background-color: #f0f0f0;
+              transition: all 0.3s ease;
+
+              &:focus {
+                border-color: #4f86c6;
+                background-color: #fff;
+                box-shadow: 0 0 8px rgba(79, 134, 198, 0.2);
+              }
+
+              &[disabled] {
+                background-color: #e0e0e0;
+                cursor: not-allowed;
+              }
+            }
+          }
+
+          .error {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+          }
+
+          .button {
+            width: 100%;
+            display: flex;
+            justify-content: center; // Atur posisi button di tengah bawah
+            gap: 20px; // Jarak antara tombol
+
+            button {
+              width: 200px;
+              padding: 15px;
+              border: none;
+              font-weight: bold;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+              background-color: #4caf50; // Warna hijau untuk tombol 'Send'
+              color: white;
+
+              &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              }
+
+              &:disabled {
+                background-color: lightgray;
+                cursor: not-allowed;
+              }
+
+              &.batal {
+                background-color: #f44336; // Warna merah untuk tombol 'Batal'
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+      color: #4f86c6;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

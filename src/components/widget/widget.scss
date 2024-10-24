@@ -1,0 +1,76 @@
+.widget-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); // Grid dengan kolom seragam
+  grid-gap: 20px;  // Jarak antar kotak
+  padding: 20px;
+}
+
+.widget {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;  // Mengisi lebar penuh kolom
+  height: 200px; // Tinggi tetap untuk semua kotak
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .left {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+      white-space: nowrap;  // Mencegah teks meluas ke beberapa baris
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .counter {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 8px;
+
+      span {
+        font-weight: 600;
+        color: #28a745;
+      }
+    }
+
+    .link {
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+      margin-top: 10px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+
+    .icon {
+      font-size: 50px;
+      color: #ff4757;
+      background-color: rgba(255, 71, 87, 0.2);
+      padding: 10px;
+      border-radius: 50%;
+    }
+  }
+}
