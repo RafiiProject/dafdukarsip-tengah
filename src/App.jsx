@@ -8,7 +8,7 @@ import {productInputs, userInputs, utaraInputs, selatanInputs, baratInputs, timu
 import "./style/dark.scss";
 import {useContext} from "react";
 import {DarkModeContext} from "./context/darkModeContext";
-import { dinasColumns, tengahColumns, timurColumns, baratColumns, selatanColumns, utaraColumns, gajahmungkurColumns, genukColumns, gunungpatiColumns, mijenColumns, ngaliyanColumns, pedurunganColumns, tembalangColumns, tuguColumns, candisariColumns, banyumanikColumns } from "./datatablesource";
+import { dinasColumns, tengahColumns } from "./datatablesource";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import Usertengah from "./pages/usertengah/Usertengah";
