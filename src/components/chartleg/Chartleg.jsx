@@ -238,6 +238,7 @@ const Chartleg = ({ type, widgetData }) => {
             },
             hoverBackgroundColor: '#42A5F5',
             cutout: '70%', // Menambahkan cutout agar pie chart berbentuk donut
+            hoverOffset: 50,  // Creates a hover animation by offsetting the arc
           }]
         });
         
@@ -255,6 +256,7 @@ const Chartleg = ({ type, widgetData }) => {
             },
             hoverBackgroundColor: '#FF7043',
             cutout: '70%', // Menambahkan cutout agar pie chart berbentuk donut
+            hoverOffset: 50,  // Creates a hover animation by offsetting the arc
           }]
         });        
       } catch (error) {
