@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <div className="login">
       <div className="login-container">
-        <img src="/src/assets/logoku.png" width="300" height="150" alt="Logo" />
+        <img src="/public/assets/logoku.png" width="300" height="150" alt="Logo" />
         <h1>Arsip Pencetakan KTP</h1>
 
         {/* Show loader when loading */}

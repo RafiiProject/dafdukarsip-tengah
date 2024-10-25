@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div className="loader-overlay">
       <div className="loader-container">
-        <img src="/src/assets/logoku.png" alt="Logo" className="loader-logo" />
+        <img src="/public/assets/logoku.png" alt="Logo" className="loader-logo" />
       </div>
     </div>
   );
