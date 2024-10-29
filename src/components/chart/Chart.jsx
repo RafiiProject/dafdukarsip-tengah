@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, where, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import { Line, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler, ArcElement } from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
 // Register necessary components for Chart.js
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 const CustomChart = ({ type, widgetData }) => {
   const [chartDataKeseluruhanBulanan, setChartDataKeseluruhanBulanan] = useState(null); // Last year (data keseluruhan)
   const [chartDataKeseluruhanHarian, setChartDataKeseluruhanHarian] = useState(null); // Last month (data keseluruhan + rusak)
-  const [pieChartData, setPieChartData] = useState(null); // Data for Pie Chart
   const navigate = useNavigate();
 
   // Labels for last year (months) and last month (days of the month)
@@ -26,7 +25,51 @@ const CustomChart = ({ type, widgetData }) => {
       case "dinas":
         data.query = "dinas";
         break;
-      // Add other cases here...
+      case "tengah":
+        data.query = "tengah";
+        break;
+      case "barat":
+        data.query = "barat";
+        break;
+      case "timur":
+        data.query = "timur";
+        break;
+      case "utara":
+        data.query = "utara";
+        break;
+      case "selatan":
+        data.query = "selatan";
+        break;
+      case "candisari":
+        data.query = "candisari";
+        break;
+      case "tembalang":
+        data.query = "tembalang";
+        break;
+      case "banyumanik":
+        data.query = "banyumanik";
+        break;
+      case "gajahmungkur":
+        data.query = "gajahmungkur";
+        break;
+      case "gunungpati":
+        data.query = "gunungpati";
+        break;
+      case "ngaliyan":
+        data.query = "ngaliyan";
+        break;
+      case "pedurungan":
+        data.query = "pedurungan";
+        break;
+      case "genuk":
+        data.query = "genuk";
+        break;
+      case "mijen":
+        data.query = "mijen";
+        break;
+      case "tugu":
+        data.query = "tugu";
+        break;
       default:
         console.error("Invalid 'type' passed to Chart component");
         return;
@@ -44,8 +87,13 @@ const CustomChart = ({ type, widgetData }) => {
       const month = today.getMonth() + 1;
       const day = today.getDate();
 
+      const todayString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+      // For Last Year (January to December)
       const startDateLastYear = `${year}-01-01`;
       const endDateLastYear = `${year}-12-31`;
+
+      // For Last Month (past 30 days)
       const startDateLastMonth = new Date(today.setDate(today.getDate() - 30)).toISOString().split('T')[0];
 
       try {
@@ -53,16 +101,26 @@ const CustomChart = ({ type, widgetData }) => {
         const qDailyTotal = query(
           collection(db, data.query), 
           where("tanggal", ">=", startDateLastMonth), 
-          orderBy("tanggal", "asc")
+          orderBy("tanggal", "asc") // Urutkan berdasarkan tanggal jika dibutuhkan
         );
         const queryDailySnapshot = await getDocs(qDailyTotal);
 
-        const lastMonthData = new Array(30).fill(0);
+        // Inisialisasi array untuk menampung data dari Firestore
+        const lastMonthData = new Array(30).fill(0); // Pastikan array memiliki 30 slot
+
+        // Menghitung jumlah data yang sesuai dengan tanggal yang ditampilkan di widget
         queryDailySnapshot.forEach((doc) => {
           const docDate = new Date(doc.data().tanggal);
-          const dayOfMonth = docDate.getDate() - 1;
-          lastMonthData[dayOfMonth]++;
+          const dayOfMonth = docDate.getDate() - 1; // 0-based index untuk hari
+          lastMonthData[dayOfMonth]++; // Tambahkan hitungan data untuk hari tersebut
         });
+
+        // Penyesuaian array dengan data widget (asumsikan widget juga menunjukkan data 30 hari terakhir)
+        if (widgetData) {
+          for (let i = 0; i < widgetData.length; i++) {
+            lastMonthData[i] = widgetData[i]; // Sesuaikan data pada chart dengan widget
+          }
+        }
 
         // Query for last month damaged data
         const qDailyDamaged = query(collection(db, data.query), where("tanggal", ">=", startDateLastMonth), where("keterangan", "==", "RUSAK"));
@@ -80,7 +138,7 @@ const CustomChart = ({ type, widgetData }) => {
           datasets: [
             {
               label: 'Last Month (Data Keseluruhan)',
-              data: lastMonthData,
+              data: lastMonthData, // Gunakan array yang sudah disesuaikan
               borderColor: 'rgba(75, 192, 192, 1)',
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               fill: true,
@@ -100,10 +158,10 @@ const CustomChart = ({ type, widgetData }) => {
         // Query for last year data (overall)
         const qMonthlyTotal = query(collection(db, data.query), where("tanggal", ">=", startDateLastYear));
         const queryMonthlySnapshot = await getDocs(qMonthlyTotal);
-        const lastYearData = new Array(12).fill(0);
+        const lastYearData = new Array(12).fill(0); // Array for 12 months
         queryMonthlySnapshot.forEach((doc) => {
           const docDate = new Date(doc.data().tanggal);
-          const monthOfYear = docDate.getMonth();
+          const monthOfYear = docDate.getMonth(); // 0-based index
           lastYearData[monthOfYear]++;
         });
 
@@ -115,23 +173,6 @@ const CustomChart = ({ type, widgetData }) => {
           const docDate = new Date(doc.data().tanggal);
           const monthOfYear = docDate.getMonth();
           lastYearDamagedData[monthOfYear]++;
-        });
-
-        // Calculate total data for pie chart
-        const totalData = lastYearData.reduce((a, b) => a + b, 0);
-        const totalDamagedData = lastYearDamagedData.reduce((a, b) => a + b, 0);
-
-        setPieChartData({
-          labels: ['Total Data', 'Total Rusak'],
-          datasets: [
-            {
-              label: 'Total Data',
-              data: [totalData, totalDamagedData],
-              backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-              borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-              borderWidth: 1,
-            },
-          ],
         });
 
         // Set data for last year overall
@@ -179,12 +220,6 @@ const CustomChart = ({ type, widgetData }) => {
           <div className="card chart">
             <h4>Last Year Data Keseluruhan dan Rusak</h4>
             <Line data={chartDataKeseluruhanBulanan} options={{ maintainAspectRatio: false }} />
-          </div>
-        )}
-        {pieChartData && (
-          <div className="card chart">
-            <h4>Total Data vs Total Rusak</h4>
-            <Pie data={pieChartData} options={{ maintainAspectRatio: false }} />
           </div>
         )}
       </div>
